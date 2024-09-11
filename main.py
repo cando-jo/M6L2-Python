@@ -112,3 +112,19 @@ def update(dt):
         carpismalar()
         gezegen()
         meteorlar_hareket()
+
+def on_mouse_down(button, pos):
+    global mod
+    if gemi1.collidepoint(pos) and button == mouse.LEFT:
+        gemi.image = gemi1.image
+        mod = "oyun"
+        
+    if gemi2.collidepoint(pos) and button == mouse.LEFT:
+        gemi.image = gemi2.image
+        mod = "oyun"
+        
+    if gemi3.collidepoint(pos) and button == mouse.LEFT:
+        gemi.image = gemi3.image
+        mod = "oyun"
+        
+        
