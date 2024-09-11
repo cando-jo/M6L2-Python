@@ -16,6 +16,7 @@ uzay = Actor("uzay")
 dusmanlar = []
 gezegenler = [Actor("gezegen1", (random.randint(0, 600), -100)), Actor("gezegen2", (random.randint(0, 600), -100)), Actor("gezegen3", (random.randint(0, 600), -100))]
 meteorlar = []
+fuzeler = []
 mod = 'menu'
 
 # Düşmanlar listesini oluşturmak
@@ -45,7 +46,10 @@ def draw():
         screen.draw.text("Choose a Spaceship", center=(300, 150), color="white", fontsize=45)
     if mod == 'oyun':
         uzay.draw()
+        #Fuzeler
         gezegenler[0].draw()
+        for i in range(len(fuzeler)):
+            fuzeler[i].draw()
         # Meteorların Çizilmesi
         for i in range(len(meteorlar)):
             meteorlar[i].draw()
@@ -106,13 +110,22 @@ def carpismalar():
         if gemi.colliderect(dusmanlar[i]):
             mod = 'son'
 
+def fuze_hareketi():
+    for i in range(len(fuzeler)):
+        if fuzeler[i].y >= 0:
+            fuzeler[i].y -= 7
+        else:
+            fuzeler.pop(i)
+            break
+        
 def update(dt):
     if mod == 'oyun':
         dusman_gemisi()
         carpismalar()
         gezegen()
         meteorlar_hareket()
-
+        fuze_hareketi()
+        
 def on_mouse_down(button, pos):
     global mod
     if gemi1.collidepoint(pos) and button == mouse.LEFT:
@@ -127,4 +140,8 @@ def on_mouse_down(button, pos):
         gemi.image = gemi3.image
         mod = "oyun"
         
+    if mod == "oyun" and button == mouse.LEFT:
+        fuze = Actor("füzeler")
+        fuze.pos = gemi.pos
+        fuzeler.append(fuze)
         
