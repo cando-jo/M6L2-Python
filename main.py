@@ -109,6 +109,12 @@ def carpismalar():
     for i in range(len(dusmanlar)):
         if gemi.colliderect(dusmanlar[i]):
             mod = 'son'
+        for q in range(len(fuzeler)):
+            if fuzeler[q].colliderect(dusmanlar[i]):
+                fuzeler.pop(q)
+                dusmanlar.pop(i)
+                yeni_dusman()
+                break
 
 def fuze_hareketi():
     for i in range(len(fuzeler)):
